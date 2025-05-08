@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Wortstrom rebalanciert</title>
+  <style>
+    body {
+      background-color: white;
+      color: black;
+      font-family: "Suisse BP Int'l", Helvetica, Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #wort {
+      font-size: 5em;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div id="wort">START</div>
+
+<script>
+const buchstaben = ['A', 'B', 'C', 'I', 'N', 'K', 'O', 'S', 'T'];
+
+const echteWoerter = [
+  "AKTION", "AKT", "BANK", "BISS", "BOOT", "CASINO",
+  "IKON", "INSTINKT", "KANON", "KINO", "KIOSK", "KITA", "KNAST",
+  "KONTAKT", "KOST", "NANO", "NATION", "NIKOTIN", "OKTAV", "SOS",
+  "STAB", "STATION", "STOCK", "TABAK", "TAKTIK", "TAT", "TOAST"
+];
+
+function mischeBuchstaben(minLen = 3, maxLen = 6) {
+  let result = '';
+  const laenge = Math.floor(Math.random() * (maxLen - minLen + 1)) + minLen;
+  for (let i = 0; i < laenge; i++) {
+    const zufall = Math.floor(Math.random() * buchstaben.length);
+    result += buchstaben[zufall];
+  }
+  return result;
+}
+
+function generiereName() {
+  return mischeBuchstaben(4, 8);
+}
+
+function neuesWort() {
+  const zufall = Math.random();
+  let wort = "";
+
+  if (zufall < 0.10) {
+    wort = echteWoerter[Math.floor(Math.random() * echteWoerter.length)];
+  } else if (zufall < 0.80) {
+    wort = generiereName();
+  } else {
+    wort = mischeBuchstaben();
+  }
+
+  document.getElementById("wort").textContent = wort.toUpperCase();
+}
+
+neuesWort();
+setInterval(neuesWort, 1000);
+</script>
+
+</body>
+</html>
